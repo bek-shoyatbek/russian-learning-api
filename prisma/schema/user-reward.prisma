@@ -1,0 +1,7 @@
+model UserReward {
+    id        Int      @id @default(autoincrement())
+    title     String?
+    coins     Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
