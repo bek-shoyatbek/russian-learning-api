@@ -1,0 +1,9 @@
+model UserProcess {
+    id         Int      @id @default(autoincrement())
+    streakDays Int?     @default(0)
+    level      String   @default("beginner")
+    user       User     @relation(fields: [userId], references: [id])
+    userId     Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
