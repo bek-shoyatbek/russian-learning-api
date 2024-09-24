@@ -1,4 +1,4 @@
-model UserReward {
+model Reward {
     id        Int      @id @default(autoincrement())
     title     String?
     coins     Int

@@ -13,8 +13,8 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Russian learning app API')
     .setVersion('1.0')
-    .addTag('users')
-    .addTag('users-reward')
+    .addTag('user')
+    .addTag('reward')
     .addTag("app")
     .build();
 
