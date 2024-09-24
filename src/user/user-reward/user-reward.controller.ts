@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
-import { UsersRewardService } from './users-reward.service';
+import { UserRewardService } from './user-reward.service';
 import { Prisma, UserReward } from '@prisma/client';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserRewardDto } from './dto/user-reward.dto';
 import { CreateUserRewardDto } from './dto/create-reward.dto';
 import { UpdateUserRewardDto } from './dto/update-reward.dto';
 
-@ApiTags('users-reward')
-@Controller('users-reward')
-export class UsersRewardController {
-  constructor(private readonly usersRewardService: UsersRewardService) { }
+@ApiTags('user-reward')
+@Controller('user-reward')
+export class UserRewardController {
+  constructor(private readonly userRewardService: UserRewardService) { }
 
   @ApiOperation({ summary: 'Get all user rewards' })
   @ApiResponse({
@@ -19,7 +19,7 @@ export class UsersRewardController {
   })
   @Get()
   findAll(@Query('userId', new ParseIntPipe()) userId: number) {
-    return this.usersRewardService.findAll(userId);
+    return this.userRewardService.findAll(userId);
   }
   @ApiOperation({ summary: 'Get single user reward by id' })
   @ApiResponse({
@@ -30,7 +30,7 @@ export class UsersRewardController {
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe()) id: number) {
-    return this.usersRewardService.findOne(id);
+    return this.userRewardService.findOne(id);
   }
   @ApiOperation({ summary: 'Create a user reward' })
   @ApiBody({ type: CreateUserRewardDto })
@@ -42,7 +42,7 @@ export class UsersRewardController {
 
   @Post()
   create(@Body() data: Prisma.UserRewardCreateInput) {
-    return this.usersRewardService.create(data);
+    return this.userRewardService.create(data);
   }
 
   @ApiOperation({ summary: 'Update a user reward' })
@@ -54,7 +54,7 @@ export class UsersRewardController {
   })
   @Patch(':id')
   update(@Param('id', new ParseIntPipe()) id: number, @Body() data: Partial<UserReward>) {
-    return this.usersRewardService.update(id, data);
+    return this.userRewardService.update(id, data);
   }
 
   @Delete(':id')
@@ -65,6 +65,6 @@ export class UsersRewardController {
     type: UserRewardDto,
   })
   remove(@Param('id', new ParseIntPipe()) id: number) {
-    return this.usersRewardService.remove(id);
+    return this.userRewardService.remove(id);
   }
 }

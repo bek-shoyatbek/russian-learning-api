@@ -1,14 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { Prisma } from '@prisma/client';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDto } from './dto/user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 
-@ApiTags('users')
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+@ApiTags('user')
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
@@ -18,7 +18,7 @@ export class UsersController {
     type: [UserDto],
   })
   findAll() {
-    return this.usersService.findAll();
+    return this.userService.findAll();
   }
 
 
@@ -30,7 +30,7 @@ export class UsersController {
     type: UserDto,
   })
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.userService.findOne(+id);
   }
 
 
@@ -46,7 +46,7 @@ export class UsersController {
     type: UserDto,
   })
   create(@Body() createUserDto: Prisma.UserCreateInput) {
-    return this.usersService.create(createUserDto);
+    return this.userService.create(createUserDto);
   }
 
 
@@ -62,7 +62,7 @@ export class UsersController {
     type: UserDto,
   })
   update(@Param('id') id: string, @Body() updateUserDto: Prisma.UserUpdateInput) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.userService.update(+id, updateUserDto);
   }
 
 
@@ -74,7 +74,7 @@ export class UsersController {
     type: UserDto,
   })
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.userService.remove(+id);
   }
 
 }

@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, UserReward } from '@prisma/client';
 
 @Injectable()
-export class UsersRewardService {
+export class UserRewardService {
 
     constructor(private readonly prisma: PrismaService) { }
 
