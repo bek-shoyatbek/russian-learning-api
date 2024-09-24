@@ -6,7 +6,6 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    UserReward UserReward[]
-
+    Reward      Reward[]
     UserProcess UserProcess[]
 }
