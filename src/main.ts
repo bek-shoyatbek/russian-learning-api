@@ -14,6 +14,7 @@ async function bootstrap() {
     .setTitle('Russian learning app API')
     .setVersion('1.0')
     .addTag('users')
+    .addTag('users-reward')
     .addTag("app")
     .build();
 
