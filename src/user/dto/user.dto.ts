@@ -4,11 +4,11 @@ export class UserDto {
     @ApiProperty()
     id: number;
     @ApiProperty()
-    username: number;
+    username: string;
     @ApiProperty()
-    email: number;
+    email: string;
     @ApiProperty()
-    avatar: number;
+    avatar: string;
     @ApiProperty()
     createdAt?: number;
     @ApiProperty()
