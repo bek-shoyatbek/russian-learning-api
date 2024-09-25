@@ -1,7 +1,7 @@
 model Category {
-    id        Int      @id @default(autoincrement())
+    id        Int       @id @default(autoincrement())
     title     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    Section Section[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    Section   Section[]
 }
