@@ -5,7 +5,6 @@ import { Category, Prisma } from '@prisma/client';
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) { }
-<<<<<<< HEAD
 
 
   @Post()
@@ -33,6 +32,4 @@ export class CategoryController {
   async remove(@Param('id') id: string): Promise<Category> {
     return this.categoryService.remove(+id);
   }
-=======
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
 }

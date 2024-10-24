@@ -18,11 +18,7 @@ export class RewardController {
     type: [RewardDto],
   })
   @Get()
-<<<<<<< HEAD
-  findAll(): Promise<Reward[]> {
-=======
   findAll() {
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
     return this.rewardService.findAll();
   }
   @ApiOperation({ summary: 'Get single reward by id' })
@@ -36,12 +32,6 @@ export class RewardController {
   findOne(@Param('id', new ParseIntPipe()) id: number) {
     return this.rewardService.findOne(id);
   }
-<<<<<<< HEAD
-
-
-  @Post()
-=======
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
   @ApiOperation({ summary: 'Create a reward' })
   @ApiBody({ type: CreateRewardDto })
   @ApiResponse({
@@ -49,20 +39,12 @@ export class RewardController {
     description: 'The created reward',
     type: RewardDto,
   })
-<<<<<<< HEAD
-=======
 
   @Post()
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
   create(@Body() data: Prisma.RewardCreateInput) {
     return this.rewardService.create(data);
   }
 
-<<<<<<< HEAD
-
-  @Patch(':id')
-=======
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
   @ApiOperation({ summary: 'Update a reward' })
   @ApiBody({ type: UpdateRewardDto })
   @ApiResponse({
@@ -70,10 +52,7 @@ export class RewardController {
     description: 'The updated reward',
     type: RewardDto,
   })
-<<<<<<< HEAD
-=======
   @Patch(':id')
->>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
   update(@Param('id', new ParseIntPipe()) id: number, @Body() data: Partial<Reward>) {
     return this.rewardService.update(id, data);
   }
