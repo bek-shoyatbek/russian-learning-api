@@ -23,7 +23,7 @@ async function bootstrap() {
 
   // Middlewares
   app.use(morgan('dev'));
-  app.enableCors();
+  app.enableCors({origin: "*"});
 
 
 
