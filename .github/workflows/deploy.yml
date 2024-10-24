@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_NAME: ru-learning-app
+  REGISTRY_NAME: ru-app
 
 jobs:
   build-and-deploy:
@@ -19,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
@@ -38,22 +39,34 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      - name: Create registry if not exists
+        continue-on-error: true
+        run: |
+          doctl registry create $REGISTRY_NAME || true
+
+      - name: Verify registry exists
+        run: |
+          doctl registry get
+
       - name: Build container image
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
-        env:
-          REGISTRY: registry.digitalocean.com/your-registry-name
+        run: docker build -t registry.digitalocean.com/$REGISTRY_NAME/$IMAGE_NAME:$(echo $GITHUB_SHA | head -c7) .
 
       - name: Log in to DigitalOcean Container Registry
-        run: doctl registry login --expiry-seconds 600
+        run: |
+          doctl registry login --expiry-seconds 1200
 
       - name: Push image to DigitalOcean Container Registry
         run: |
-          docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
-        env:
-          REGISTRY: registry.digitalocean.com/your-registry-name
+          docker push registry.digitalocean.com/$REGISTRY_NAME/$IMAGE_NAME:$(echo $GITHUB_SHA | head -c7)
+
+      - name: Update deployment file
+        run: |
+          TAG=$(echo $GITHUB_SHA | head -c7)
+          sed -i 's|<IMAGE>|registry.digitalocean.com/'${REGISTRY_NAME}'/'${IMAGE_NAME}':'${TAG}'|' $GITHUB_WORKSPACE/k8s/deployment.yaml
+
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
 
       - name: Deploy to DigitalOcean Kubernetes
         run: |
-          kubectl set image deployment/$IMAGE_NAME $IMAGE_NAME=$(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
-        env:
-          REGISTRY: registry.digitalocean.com/your-registry-name
+          kubectl apply -f $GITHUB_WORKSPACE/k8s/deployment.yaml
