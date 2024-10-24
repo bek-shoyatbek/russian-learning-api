@@ -24,7 +24,11 @@ export class RewardService {
         return this.prisma.reward.update({ where: { id: rewardId }, data });
     }
 
+<<<<<<< HEAD
     async remove(rewardId: number): Promise<Reward> {
+=======
+    async remove(rewardId: number): Promise<any> {
+>>>>>>> a9bc5e745afe403438e052e948fee081965ca5ab
         return this.prisma.reward.delete({ where: { id: rewardId } });
     }
 }
