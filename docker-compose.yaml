@@ -4,6 +4,10 @@ services:
     image: bekshoyatbekov/ru-app:latest
     container_name: ru-app
     restart: always
+    network_mode: "bridge"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     # Add your other configuration (ports, volumes, etc.)
     ports:
       - 6060:5040
@@ -16,6 +20,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30 --cleanup
     restart: always
+    network_mode: "bridge"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     environment:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_POLL_INTERVAL=30
