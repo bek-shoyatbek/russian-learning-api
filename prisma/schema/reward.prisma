@@ -1,9 +1,11 @@
 model Reward {
-    id        Int      @id @default(autoincrement())
-    title     String?
-    coins     Int
-    user      User?    @relation(fields: [userId], references: [id])
-    userId    Int?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  title     String?
+  coins     Int
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?     // Foreign key
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId]) // Add index for better query performance
 }

@@ -6,13 +6,15 @@ import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
 import { RewardModule } from './reward/reward.module';
 import { SectionModule } from './section/section.module';
+import { UserRankingsModule } from './user-rankings/user-rankings.module';
 
 @Module({
   imports: [UserModule,
     ConfigModule.forRoot({ isGlobal: true }),
     CategoryModule,
     RewardModule,
-    SectionModule
+    SectionModule,
+    UserRankingsModule
   ],
   controllers: [AppController],
   providers: [AppService],
