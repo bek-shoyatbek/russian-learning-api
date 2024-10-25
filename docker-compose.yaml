@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   # Your application service
   ru-app:
