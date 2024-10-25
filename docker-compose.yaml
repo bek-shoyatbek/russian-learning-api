@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  # Your application service
+  ru-app:
+    image: bekshoyatbekov/ru-app:latest
+    container_name: ru-app
+    restart: always
+    # Add your other configuration (ports, volumes, etc.)
+    ports:
+      - 6060:5040
+    
+  # Watchtower service to handle auto-updates
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --cleanup
+    restart: always
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=30
