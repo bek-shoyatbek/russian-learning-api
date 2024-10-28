@@ -6,7 +6,7 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    Reward      Reward[]
+    Coin Coin[]
     UserProcess UserProcess[]
     Star Star[]
     XP XP[]

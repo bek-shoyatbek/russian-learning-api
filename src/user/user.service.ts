@@ -16,7 +16,7 @@ export class UserService {
                 id: id
             },
             include: {
-                Reward: true,
+                Coin: true,
                 XP: true,
                 Star: true
             }
@@ -26,7 +26,7 @@ export class UserService {
             throw new NotFoundException('User not found');
         }
 
-        const totalCoins = user.Reward.reduce((acc, curr) => acc + curr.coins, 0);
+        const totalCoins = user.Coin.reduce((acc, curr) => acc + curr.coin, 0);
         const totalXp = user.XP.reduce((acc, curr) => acc + curr.xp, 0);
         const totalStars = user.Star.reduce((acc, curr) => acc + curr.star, 0);
  

@@ -16,10 +16,6 @@ export class XpController {
     return this.xpService.findAll(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.xpService.findOne(id);
-  }
 
   @Put(':id')
   update(@Param('id') id: number, @Body() updateXpDto: Prisma.XPUpdateInput & { xp: number }) {

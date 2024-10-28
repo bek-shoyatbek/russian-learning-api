@@ -1,27 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-
 @Injectable()
-export class XpService {
+export class CoinService {
     constructor(private prisma: PrismaService) {}
 
-    async create(userId: number, xp: number) {
-        return this.prisma.xP.create({
-            data: { userId, xp }
+    async create(userId: number, coin: number) {
+        return this.prisma.coin.create({
+            data: { userId, coin }
         });
     }
 
     async findAll(userId: number) {
-        return this.prisma.xP.findMany({
+        return this.prisma.coin.findMany({
             where: { userId }
         });
     }
 
-    async update(id: number, xp: number) {
-        return this.prisma.xP.update({
+
+    async update(id: number, coin: number) {
+        return this.prisma.coin.update({
             where: { id },
-            data: { xp }
+            data: { coin }
         });
     }
+
 }

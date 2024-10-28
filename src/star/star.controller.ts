@@ -16,11 +16,6 @@ export class StarController {
     return this.starService.findAll(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.starService.findOne(id);
-  }
-
   @Put(':id')
   update(@Param('id') id: number, @Body() updateStarDto: Prisma.StarUpdateInput & { star: number }) {
     return this.starService.update(id, updateStarDto.star);

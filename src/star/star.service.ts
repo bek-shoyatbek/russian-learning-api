@@ -17,11 +17,6 @@ export class StarService {
         });
     }
 
-    async findOne(id: number) {
-        return this.prisma.star.findUnique({
-            where: { id }
-        });
-    }
 
     async update(id: number, star: number) {
         return this.prisma.star.update({

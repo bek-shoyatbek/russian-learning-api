@@ -1,7 +1,6 @@
-model Reward {
+model Coin {
   id        Int      @id @default(autoincrement())
-  title     String?
-  coins     Int
+  coin     Int
   user      User?    @relation(fields: [userId], references: [id])
   userId    Int?     // Foreign key
   createdAt DateTime @default(now())
