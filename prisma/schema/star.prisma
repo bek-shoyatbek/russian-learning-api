@@ -1,0 +1,10 @@
+model Star {
+  id        Int      @id @default(autoincrement())
+  star     Int
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?     // Foreign key
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId]) // Add index for better query performance
+}

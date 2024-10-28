@@ -8,4 +8,6 @@ model User {
 
     Reward      Reward[]
     UserProcess UserProcess[]
+    Star Star[]
+    XP XP[]
 }
