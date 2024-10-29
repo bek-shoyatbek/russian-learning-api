@@ -3,25 +3,27 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserRankingsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async getWeeklyTopUsers(limit: number = 10) {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-    return this.prisma.$queryRaw`
+    const users = await this.prisma.$queryRaw`
       SELECT 
         u.id,
         u.username,
-        COUNT(r.id) as reward_count,
-        COALESCE(SUM(r.coins), 0) as total_coins
+        COUNT(x.id) as xp_count,
+        COALESCE(SUM(x.xp), 0) as total_xp
       FROM "User" u
-      LEFT JOIN "Reward" r ON u.id = r.userId
-      WHERE r.createdAt >= ${oneWeekAgo}
+      LEFT JOIN "Xp" x ON u.id = x.userId
+      WHERE x.createdAt >= ${oneWeekAgo}
       GROUP BY u.id, u.username
-      ORDER BY total_coins DESC
+      ORDER BY total_xp DESC
       LIMIT ${limit}
     `;
+
+    return users;
   }
 
   async getMonthlyTopUsers(limit: number = 10) {
@@ -32,13 +34,13 @@ export class UserRankingsService {
       SELECT 
         u.id,
         u.username,
-        COUNT(r.id) as reward_count,
-        COALESCE(SUM(r.coins), 0) as total_coins
+        COUNT(x.id) as xp_count,
+        COALESCE(SUM(x.xp), 0) as total_xp
       FROM "User" u
-      LEFT JOIN "Reward" r ON u.id = r.userId
-      WHERE r.createdAt >= ${oneMonthAgo}
+      LEFT JOIN "Xp" x ON u.id = x.userId
+      WHERE x.createdAt >= ${oneMonthAgo}
       GROUP BY u.id, u.username
-      ORDER BY total_coins DESC
+      ORDER BY total_xp DESC
       LIMIT ${limit}
     `;
   }
@@ -48,10 +50,10 @@ export class UserRankingsService {
       SELECT 
         u.id,
         u.username,
-        COUNT(r.id) as reward_count,
-        COALESCE(SUM(r.coins), 0) as total_coins
+        COUNT(c.id) as coin_count,
+        COALESCE(SUM(c.coin), 0) as total_coins
       FROM "User" u
-      LEFT JOIN "Reward" r ON u.id = r.userId
+      LEFT JOIN "Coin" c ON u.id = c.userId
       GROUP BY u.id, u.username
       ORDER BY total_coins DESC
       LIMIT ${limit}
