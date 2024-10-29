@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaExceptionFilter } from './filters/prisma-exception.filter';
 
 async function bootstrap() {
@@ -9,20 +8,10 @@ async function bootstrap() {
   const configService = app.get<ConfigService>(ConfigService);
   const port = configService.get<number>('PORT');
 
-  // Swagger docs
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle('Russian learning app API')
-    .setVersion('1.0')
-    .addTag('user')
-    .addTag('reward')
-    .addTag("app")
-    .build();
 
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('docs', app, document);
 
   // Middlewares
-  app.enableCors({origin: "*"});
+  app.enableCors({ origin: "*" });
   app.useGlobalFilters(new PrismaExceptionFilter());
 
 
