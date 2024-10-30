@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { PrismaExceptionFilter } from './filters/prisma-exception.filter';
+import * as morgan from 'morgan';
 
 declare global {
   interface BigInt {
@@ -24,6 +25,7 @@ async function bootstrap() {
   // Middlewares
   app.enableCors({ origin: "*" });
   app.useGlobalFilters(new PrismaExceptionFilter());
+  app.use(morgan('dev'));
 
 
 
