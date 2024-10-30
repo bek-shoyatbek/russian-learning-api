@@ -22,8 +22,13 @@ export class UserController {
 
 
   @Post()
-
   create(@Body() createUserDto: Prisma.UserCreateInput) {
+    // check this email is unique
+    const user = this.userService.findOneByEmail(createUserDto.email);
+
+    if (user) {
+      throw new Error('User already exists');
+    }
     return this.userService.create(createUserDto);
   }
 

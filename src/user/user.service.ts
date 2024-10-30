@@ -33,6 +33,14 @@ export class UserService {
         return { ...user, coins: totalCoins, xp: totalXp, stars: totalStars };
     }
 
+    async findOneByEmail(email: string): Promise<User> {
+        return this.prisma.user.findFirst({
+            where: {
+                email: email
+            }
+        });
+    }
+
     async create(data: Prisma.UserCreateInput): Promise<User> {
         return this.prisma.user.create({
             data: data
