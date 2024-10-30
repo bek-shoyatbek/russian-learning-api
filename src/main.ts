@@ -25,7 +25,7 @@ async function bootstrap() {
   // Middlewares
   app.enableCors({ origin: "*" });
   app.useGlobalFilters(new PrismaExceptionFilter());
-  app.use(morgan('dev'));
+  app.use(morgan.default('dev'));
 
 
 
