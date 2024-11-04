@@ -8,23 +8,21 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Get()
-
   findAll() {
     return this.userService.findAll();
   }
 
 
   @Get(':id')
-
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
 
   @Post()
-  create(@Body() createUserDto: Prisma.UserCreateInput) {
+  async create(@Body() createUserDto: Prisma.UserCreateInput) {
     // check this email is unique
-    const user = this.userService.findOneByEmail(createUserDto.email);
+    const user = await this.userService.findOneByEmail(createUserDto.email);
 
     if (user) {
       throw new Error('User already exists');
