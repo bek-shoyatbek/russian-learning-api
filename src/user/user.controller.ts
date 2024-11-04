@@ -25,10 +25,13 @@ export class UserController {
     const user = await this.userService.findOneByEmail(createUserDto.email);
 
     if (user) {
-      throw new Error('User already exists');
+      return user;
     }
+
     return this.userService.create(createUserDto);
   }
+
+
 
 
   @Put(':id')
