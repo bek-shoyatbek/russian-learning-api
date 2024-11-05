@@ -7,7 +7,7 @@ export class UserService {
     constructor(private readonly prisma: PrismaService) { }
 
     async findAll(): Promise<User[]> {
-        return this.prisma.user.findMany();
+        return await this.prisma.user.findMany();
     }
 
     async findOne(id: number) {
@@ -30,7 +30,7 @@ export class UserService {
         const totalXp = user.XP.reduce((acc, curr) => acc + curr.xp, 0);
         const totalStars = user.Star.reduce((acc, curr) => acc + curr.star, 0);
 
-        return { ...user, coins: totalCoins, xp: totalXp, stars: totalStars };
+        return { ...user, coins: totalCoins, xp: totalXp, stars: totalStars, };
     }
 
     async findOneByEmail(email: string): Promise<User> {

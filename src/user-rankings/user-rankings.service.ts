@@ -13,6 +13,7 @@ export class UserRankingsService {
       SELECT 
         u.id,
         u.username,
+        u.avatar as avatar,
         COUNT(x.id) as xp_count,
         COALESCE(SUM(x.xp), 0) as total_xp
       FROM "User" u
@@ -34,6 +35,7 @@ export class UserRankingsService {
       SELECT 
         u.id,
         u.username,
+        u.avatar as avatar,
         COUNT(x.id) as xp_count,
         COALESCE(SUM(x.xp), 0) as total_xp
       FROM "User" u
@@ -50,6 +52,7 @@ export class UserRankingsService {
       SELECT 
         u.id,
         u.username,
+        u.avatar as avatar,
         COUNT(c.id) as coin_count,
         COALESCE(SUM(c.coin), 0) as total_coins
       FROM "User" u
