@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserRankingsService } from 'src/user-rankings/user-rankings.service';
 
 @Injectable()
 export class UserService {
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(private readonly prisma: PrismaService, private readonly userRankingService: UserRankingsService) { }
 
     async findAll(): Promise<User[]> {
         return await this.prisma.user.findMany();
@@ -26,11 +27,10 @@ export class UserService {
             throw new NotFoundException('User not found');
         }
 
-        const totalCoins = user.Coin.reduce((acc, curr) => acc + curr.coin, 0);
-        const totalXp = user.XP.reduce((acc, curr) => acc + curr.xp, 0);
-        const totalStars = user.Star.reduce((acc, curr) => acc + curr.star, 0);
+        const userWithRank = await this.userRankingService.getUserRankings(user.id);
 
-        return { ...user, coins: totalCoins, xp: totalXp, stars: totalStars, };
+        return userWithRank;
+
     }
 
     async findOneByEmail(email: string): Promise<User> {
