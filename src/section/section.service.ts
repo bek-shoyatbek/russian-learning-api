@@ -39,18 +39,18 @@ export class SectionService {
         if (avatarPath) {
             const currentSection = await this.prisma.section.findUnique({
                 where: { id: sectionId },
-                select: { avatar: true },
+                select: { image: true },
             });
 
-            if (currentSection?.avatar) {
+            if (currentSection?.image) {
                 try {
-                    await unlinkAsync(currentSection.avatar);
+                    await unlinkAsync(currentSection.image);
                 } catch (error) {
-                    console.error('Error deleting old avatar file:', error);
+                    console.error('Error deleting old image file:', error);
                 }
             }
 
-            updateData.avatar = avatarPath;
+            updateData.image = avatarPath;
         }
 
         return this.prisma.section.update({
@@ -62,14 +62,14 @@ export class SectionService {
     async remove(sectionId: number): Promise<Section> {
         const section = await this.prisma.section.findUnique({
             where: { id: sectionId },
-            select: { avatar: true },
+            select: { image: true },
         });
 
-        if (section?.avatar) {
+        if (section?.image) {
             try {
-                await unlinkAsync(section.avatar);
+                await unlinkAsync(section.image);
             } catch (error) {
-                console.error('Error deleting avatar file:', error);
+                console.error('Error deleting image file:', error);
             }
         }
 

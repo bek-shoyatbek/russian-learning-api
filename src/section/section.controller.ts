@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query,
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { SectionService } from './section.service';
-import { Section } from '@prisma/client';
+import { Prisma, Section } from '@prisma/client';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
@@ -21,10 +21,10 @@ export class SectionController {
   }
 
   @Post()
-  @UseInterceptors(FileInterceptor('avatar', {
+  @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
       destination: './uploads',
-      filename: (req, file, cb) => {
+      filename: (_req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
       }
@@ -32,17 +32,17 @@ export class SectionController {
   }))
   async create(
     @Query('categoryId', new ParseIntPipe()) categoryId: number,
-    @Body() data: any,
+    @Body() data: Prisma.SectionCreateInput,
     @UploadedFile() avatar: Express.Multer.File
   ): Promise<Section> {
     if (avatar) {
-      data.avatar = avatar.path;
+      data.image = avatar.filename;
     }
     return this.sectionService.create(categoryId, data);
   }
 
   @Patch(':id')
-  @UseInterceptors(FileInterceptor('avatar', {
+  @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
       destination: './uploads',
       filename: (req, file, cb) => {

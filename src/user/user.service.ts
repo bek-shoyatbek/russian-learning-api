@@ -17,9 +17,9 @@ export class UserService {
                 id: id
             },
             include: {
-                Coin: true,
-                XP: true,
-                Star: true
+                coins: true,
+                xp: true,
+                stars: true
             }
         });
 
