@@ -1,0 +1,14 @@
+model UserTestCompletion {
+    id          Int      @id @default(autoincrement())
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
+    test        Word     @relation(fields: [testId], references: [id])
+    testId      Int
+    score       Float?
+    completedAt DateTime @default(now())
+
+    @@unique([userId, testId])
+    @@index([userId])
+    @@index([testId])
+    @@map("user_test_completions")
+}

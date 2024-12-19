@@ -1,9 +1,0 @@
-model Test {
-    id         Int      @id @default(autoincrement())
-    title      String
-    avatar     String
-    sectionId  Int
-    section    Section  @relation(fields: [sectionId], references: [id])
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-}

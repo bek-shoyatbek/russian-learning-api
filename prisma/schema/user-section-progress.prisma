@@ -1,0 +1,16 @@
+model UserSectionProgress {
+    id          Int       @id @default(autoincrement())
+    user        User      @relation(fields: [userId], references: [id])
+    userId      Int
+    section     Section   @relation(fields: [sectionId], references: [id])
+    sectionId   Int
+    completed   Boolean   @default(false)
+    percentage  Float     @default(0)
+    updatedAt   DateTime  @updatedAt
+    completedAt DateTime?
+
+    @@unique([userId, sectionId])
+    @@index([userId])
+    @@index([sectionId])
+    @@map("user_section_progresses")
+}

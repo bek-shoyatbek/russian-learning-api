@@ -1,0 +1,16 @@
+model Word {
+    id          Int      @id @default(autoincrement())
+    wordRu      String
+    wordRuTrans String   @map("example_uzbek")
+    wordUz      String
+    exampleRu   String   @map("english_translation")
+    exampleUz   String   @map("example_english")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    sectionId   Int
+    section     Section              @relation(fields: [sectionId], references: [id])
+    completedBy UserTestCompletion[]
+
+    @@map("words")
+}

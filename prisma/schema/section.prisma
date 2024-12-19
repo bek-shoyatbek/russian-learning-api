@@ -1,11 +1,15 @@
 model Section {
     id         Int      @id @default(autoincrement())
     title      String
-    avatar     String
+    image      String
+    star       Int?     @default(0)
     category   Category @relation(fields: [categoryId], references: [id])
     categoryId Int
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
-    Test Test[]
+    words        Word[]
+    userProgress UserSectionProgress[]
+
+    @@map("sections")
 }

@@ -1,10 +1,11 @@
 model Star {
   id        Int      @id @default(autoincrement())
-  star     Int
+  star      Int
   user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?     // Foreign key
+  userId    Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([userId]) // Add index for better query performance
+  @@index([userId])
+  @@map("stars")
 }

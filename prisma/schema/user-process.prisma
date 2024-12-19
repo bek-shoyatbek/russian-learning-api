@@ -1,4 +1,4 @@
-model UserProcess {
+model UserProgress {
     id         Int      @id @default(autoincrement())
     streakDays Int?     @default(0)
     level      String   @default("beginner")
@@ -6,4 +6,6 @@ model UserProcess {
     userId     Int
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
+
+    @@map("user_progresses")
 }
